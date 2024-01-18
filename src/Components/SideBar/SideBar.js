@@ -1,33 +1,22 @@
 // Sidebar.js
-import React, { useState } from 'react';
+import React from 'react';
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
-    <div className={`sidebar fixed h-full ${isOpen ? 'w-48' : 'w-0'} bg-orange-500 text-black transition-width duration-300`}>
-      <button className={`p-3.5 w-full bg-orange-500 ${isOpen ? 'hover:bg-gray-300' : ''}`} onClick={toggleSidebar}>
-        <span style={{ verticalAlign: 'middle' }}>
-          {isOpen ? '☰' : '☰'}
-        </span>
-      </button>
-      {isOpen && (
-        <ul>
-          <li className="p-4 cursor-pointer hover:bg-blue-300">
+    <div className="sidebar fixed w-48 h-full bg-white text-black flex flex-col items-center rounded-r-lg">
+      <div style={{ position: 'fixed' }}>
+        <ul className="mt-12">
+          <li className="p-4 cursor-pointer transition-transform transform-gpu hover:bg-blue-300 hover:scale-105 mb-2 rounded-md text-sm">
             Opción 1
           </li>
-          <li className="p-4 cursor-pointer hover:bg-blue-300">
+          <li className="p-4 cursor-pointer transition-transform transform-gpu hover:bg-blue-300 hover:scale-105 mb-2 rounded-md text-sm">
             Opción 2
           </li>
-          <li className="p-4 cursor-pointer hover:bg-blue-300">
+          <li className="p-4 cursor-pointer transition-transform transform-gpu hover:bg-blue-300 hover:scale-105 mb-2 rounded-md text-sm">
             Opción 3
           </li>
         </ul>
-      )}
+      </div>
     </div>
   );
 };

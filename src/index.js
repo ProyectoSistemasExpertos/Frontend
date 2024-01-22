@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Login from './Components/Login/Login';
+import Register from './Components/Login/Registration';
 
 
 //IMPORTANDO LA LIBRERIA DE ALPINE PARA UTILIZAR EN EL RENDER DE LOGIN
@@ -13,7 +12,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //ESTE RENDER REDIRIGE HACIA EL FRONT DEL LOGIN SIN EMBARGO PUEDE USARSE PARA TESTEOS INDIVIDUALES DE CUALQUIER VISTA 
 root.render(  
 <React.StrictMode>
-  <Login /> 
+  <Register /> 
 </React.StrictMode>
 );
 

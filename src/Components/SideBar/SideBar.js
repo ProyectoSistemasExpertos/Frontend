@@ -6,6 +6,7 @@ import axios from "axios";
 
 const endpoint = "http://127.0.0.1:8000/api";
 
+
 const Sidebar = () => {
   const [categorys, setCategorys] = useState([]);
   console.log(categorys);
@@ -22,7 +23,7 @@ const Sidebar = () => {
     fetchData();
   }, []);
   return (
-    <div className="sidebar fixed w-48 h-full bg-white text-black flex flex-col items-center rounded-r-lg">
+    <div className="sidebar fixed w-48 h-full bg-white text-white flex flex-col items-center rounded-r-lg">
       <div style={{ position: "fixed" }}>
         <ul className="mt-12">
           {categorys.map((category) => (
@@ -45,7 +46,7 @@ const Sidebar = () => {
                     </svg>
                   </span>
                 </label>
-                <label class="mt-px font-light text-gray-700 cursor-pointer select-none" htmlFor="check">
+                <label class="mt-px font-light text-black cursor-pointer select-none" htmlFor="check">
                  {category.typeCategory}
                 </label>
               </div>
@@ -53,6 +54,7 @@ const Sidebar = () => {
           ))}
         </ul>
       </div>
+      
     </div>
   );
 };

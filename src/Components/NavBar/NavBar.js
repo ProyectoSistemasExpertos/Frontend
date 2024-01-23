@@ -1,5 +1,6 @@
 // NavBar.js
 import React from 'react';
+import Sidebar from '../SideBar/SideBar';
 
 const NavBar = () => {
     const hoverStyle = {
@@ -7,14 +8,14 @@ const NavBar = () => {
     };
 
     return (
-        <nav className="bg-brown-300 p-4 text-black w-full rounded-b-lg">
-            {/* Contenido del navbar */}
+        <nav className="bg-white-600 p-4 text-black w-full rounded-b-lg">
+                <Sidebar/>
             <ul className="flex flex-wrap justify-end">
                 <li style={{ ...hoverStyle, marginRight: '1.5rem' }} className="hover:text-blue-300 mb-2">
-                    Opcion 1
+                    Historial de Preferencias
                 </li>
                 <li style={{ ...hoverStyle, marginRight: '1.5rem' }} className="hover:text-blue-300 mb-2">
-                    Opcion 2
+                    Historial de reservaciones
                 </li>
                 <li style={{ ...hoverStyle, marginRight: '1.5rem' }} className="hover:text-blue-300 mb-2">
                     Opcion 3

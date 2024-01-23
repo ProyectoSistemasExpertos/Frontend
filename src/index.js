@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Register from './Components/Login/Registration';
+//import Register from './Components/Login/Registration';
 
 import App from './App';//Quitar al terminar de editar
 
 
 //IMPORTANDO LA LIBRERIA DE ALPINE PARA UTILIZAR EN EL RENDER DE LOGIN
-window.Alpine = require('alpinejs');
+//window.Alpine = require('alpinejs');
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 //ESTE RENDER REDIRIGE HACIA EL FRONT DEL LOGIN SIN EMBARGO PUEDE USARSE PARA TESTEOS INDIVIDUALES DE CUALQUIER VISTA 

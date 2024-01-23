@@ -73,9 +73,8 @@ const ShowBookings = () => {
                             <p><strong>Estado:</strong> {booking.state === 0 ? 'No disponible' : 'Disponible'}</p>
                             <p><strong>Precio:</strong> {booking.price}</p>
                             <p><strong>Locación:</strong> {booking.location}</p>
-                            <p><strong>Nombre de la Persona:</strong> {`${booking.namePerson} ${booking.firstLastNamePerson} ${booking.secondLastNamePerson}`}</p>
-                            <p><strong>Correo Electrónico:</strong> {booking.personEmail}</p>
-                            <p><strong>Teléfono:</strong> {booking.personPhone}</p>
+                            <p><strong>Cantidad personas:</strong> {booking.totalPossibleReservation}</p>
+                            
                         </div>
                         <div className="col-span-1 relative">
                             <span className="text-yellow-500 text-3xl absolute top-0 left-0 mt-2 ml-2">

@@ -18,7 +18,7 @@ const NavBar = () => {
                     Historial de reservaciones
                 </li>
                 <li style={{ ...hoverStyle, marginRight: '1.5rem' }} className="hover:text-blue-300 mb-2">
-                    Opcion 3
+                    Agregar nuevo lugar de reserva
                 </li>
                 <li style={{ ...hoverStyle, marginRight: '1.5rem' }} className="hover:text-blue-300 mb-2">
                     Opcion 4

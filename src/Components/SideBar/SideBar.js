@@ -4,13 +4,17 @@ import axios from 'axios';
 
 const endpoint = "http://127.0.0.1:8000/api";
 
-const Sidebar = () => {
+const Sidebar = ({ onCategoryChange }) => {
   const [categorys, setCategorys] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
-  const handleCheckboxChange = (categoryId) => {
-    setSelectedCategoryId((prevId) => (prevId === categoryId ? null : categoryId));
-    console.log(categoryId);
+
+  const handleCheckboxChange = (selectedCategory) => {
+    setSelectedCategoryId((prevCategory) =>
+      prevCategory === selectedCategory ? null : selectedCategory
+    );
+    console.log(selectedCategory);
+    onCategoryChange(selectedCategory);
   };
 
   useEffect(() => {

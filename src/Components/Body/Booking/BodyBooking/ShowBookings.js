@@ -33,7 +33,7 @@ const ShowBookings = ({booking, setBooking}) => {
                             {description}. <br>
                             </br>Con un precio de: {price} <br></br>
                             Posee un total de {totalPossibleReservation} habitaciones <br></br>
-                            Contactanos al: {phone} <br></br>
+                            Contáctanos al: {phone} <br></br>
                             O al Correo: {email}
                         </p>
                         <div className="col-span-1 relative">

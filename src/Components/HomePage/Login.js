@@ -13,9 +13,9 @@ const Login = ({ switchView }) => {
         e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
 
         try {
-            const response = await axios.post('http://localhost/api/login', {
-                email: email,
-                password: password,
+            const response = await axios.post('http://localhost:8000/api/login', {
+                email,
+                password,
             });
 
             // Maneja el token de acceso aquí (puedes almacenarlo en el estado global, local storage, etc.)

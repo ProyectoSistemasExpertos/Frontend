@@ -23,18 +23,19 @@ const Carousel = () => {
 
   return (
     <div className="flex-none w-1/2">
-      <Slider {...settings} className="w-full h-full">
-        {imageUrls.map((imageUrl, index) => (
-          <div key={index} className="w-full h-full">
-            <img
-              src={imageUrl}
-              alt={`Imagen ${index + 1}`}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        ))}
+      <Slider {...settings} className="w-full h-full flex-grow flex-shrink">
+          {imageUrls.map((imageUrl, index) => (
+              <div key={index} className="w-full h-full">
+                  <img
+                      src={imageUrl}
+                      alt={`Imagen ${index + 1}`}
+                      className="w-full h-full object-cover"
+                  />
+              </div>
+          ))}
       </Slider>
     </div>
+
   );
 };
 

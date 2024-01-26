@@ -1,6 +1,5 @@
 // NavBar.js
 import React from 'react';
-import Sidebar from '../SideBar/SideBar';
 
 const NavBar = () => {
     const hoverStyle = {
@@ -15,9 +14,6 @@ const NavBar = () => {
                 </li>
                 <li style={{ ...hoverStyle, marginRight: '1.5rem' }} className="hover:text-blue-300 mb-2">
                     Historial de reservaciones
-                </li>
-                <li style={{ ...hoverStyle, marginRight: '1.5rem' }} className="hover:text-blue-300 mb-2">
-                    Agregar nuevo lugar de reserva
                 </li>
                 <li style={{ ...hoverStyle, marginRight: '1.5rem' }} className="hover:text-blue-300 mb-2">
                     Crear un nuevo destino

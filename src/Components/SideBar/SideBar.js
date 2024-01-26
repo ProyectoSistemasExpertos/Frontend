@@ -14,7 +14,7 @@ const Sidebar = ({ onCategoryChange }) => {
       prevCategory === selectedCategory ? null : selectedCategory
     );
     console.log(selectedCategory);
-    onCategoryChange(selectedCategory);
+    onCategoryChange({ selectedCategory });
   };
 
   useEffect(() => {

@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from 'react-router-dom';
 import ShowBookings from "./BodyBooking/ShowBookings";
 
 const endpoint = "http://127.0.0.1:8000/api";
@@ -29,27 +28,17 @@ const Booking = ({ selectedCategory }) => {
 
         return stars.join(' ');
     };
-/*
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`${endpoint}/booking`);
-                setBookings(response.data);
-            } catch (error) {
-                console.error("Error fetching bookings:", error);
-            }
-        };
-
-        fetchData();
-    }, []); */
 
     useEffect(() => {
         const fetchDataB = async () => {
             try {
-                if (selectedCategory) {
-                    const response = await axios.get(`${endpoint}/booking/filter_category/${selectedCategory}`);
+                const num = selectedCategory && Number(selectedCategory.selectedCategory);
+                console.log(num);
+                if (num != 0 && num != null) {
+                    console.log(`${endpoint}/booking/filter_category/${num}`);
+                    const response = await axios.get(`${endpoint}/booking/filter_category/${num}`);                    
                     setfilterBookings(response.data);
-                } else {
+                } else if(num == 0 || num == null) {
                     const response = await axios.get(`${endpoint}/booking`);
                     setBookings(response.data);
                 }

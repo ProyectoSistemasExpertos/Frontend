@@ -3,7 +3,7 @@ import React from 'react'
 const ShowBookings = ({booking, setBooking}) => {
     const { idBooking, tittle, description, price, state, location, totalPossibleReservation, 
         uploadDate, image, name, email, firstLastName, secondLastName, phone, address, rol, typeCategory } = booking;
-    return (
+        return (
         <>
             
                 <div className="mb-16 flex flex-wrap">

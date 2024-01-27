@@ -19,6 +19,8 @@ const App = () => {
     // Redirige a '/booking' cuando el usuario está autenticado
     if (isAuthenticated) {
       navigate('/booking');
+    }else{
+      navigate('/')
     }
   }, [isAuthenticated, navigate]);
 
@@ -44,7 +46,7 @@ const App = () => {
                 <Route path="/" element={<HomePage />} />
               </>
             ) : (
-              <Route path="/*" element={<Navigate to="/" />} /> // RUTA QUE DEVUELVE AL LOGIN (PUBLICA) SIEMPRE Y CUANDO NO ESTE AUTENTICADO
+              <Route path="/" element={<HomePage />} /> // RUTA QUE DEVUELVE AL LOGIN (PUBLICA) SIEMPRE Y CUANDO NO ESTE AUTENTICADO
             )}
           </Routes>
         </div>

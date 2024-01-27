@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useAuth } from '../AuthContext/Authenticator';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({ switchView }) => {
+    const { login } = useAuth(); //FUNCION DE INICIO DE SESION
+    const navigate = useNavigate(); //FUNCION DE NAVEGACION
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [show, setShow] = useState(true);
@@ -9,26 +13,12 @@ const Login = ({ switchView }) => {
     const handleToggleShow = () => {
         setShow(!show);
     };
+
     const handleLogin = async (e) => {
-        e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+        e.preventDefault(); 
 
-        try {
-            const response = await axios.post('http://localhost:8000/api/login', {
-                email,
-                password,
-            });
-
-            // Maneja el token de acceso aquí (puedes almacenarlo en el estado global, local storage, etc.)
-            console.log(response.data.token);
-
-            // Redirige al usuario o realiza otras acciones necesarias
-            // Puedes utilizar useHistory de react-router-dom para redirigir
-            // import { useHistory } from 'react-router-dom';
-            // const history = useHistory();
-            // history.push('/ruta-privada');
-        } catch (error) {
-            console.error('Error de inicio de sesión:', error);
-        }
+         // LLAMA A LA FUNCION DE INICIO DE SESION DEL CONTEXTO DE LOGUEO
+        await login(email, password);
     };
 
     return (

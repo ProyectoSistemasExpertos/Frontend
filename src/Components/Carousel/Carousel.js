@@ -22,7 +22,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="flex-none w-1/2">
+    <div className="w-full">
       <Slider {...settings} className="w-full h-full flex-grow flex-shrink">
           {imageUrls.map((imageUrl, index) => (
               <div key={index} className="w-full h-full">

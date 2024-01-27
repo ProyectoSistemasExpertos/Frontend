@@ -1,16 +1,18 @@
+import './index.css';
+import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import App from './App';
+import { AuthProvider } from './Components/AuthContext/Authenticator';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 //ESTE RENDER REDIRIGE HACIA EL FRONT DEL LOGIN SIN EMBARGO PUEDE USARSE PARA TESTEOS INDIVIDUALES DE CUALQUIER VISTA 
 root.render(  
 <React.StrictMode>
-  <App /> 
+  <AuthProvider>
+    <App /> 
+  </AuthProvider>
 </React.StrictMode>
 );
 

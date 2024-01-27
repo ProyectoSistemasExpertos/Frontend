@@ -1,6 +1,8 @@
 // NavBar.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const NavBar = ({ onCategoryChange }) => {
     const hoverStyle = {
@@ -14,14 +16,19 @@ const NavBar = ({ onCategoryChange }) => {
                     <Link to="/" onClick={() => onCategoryChange(0)}>Inicio</Link>
                 </li>
                 <li style={{ ...hoverStyle, marginRight: '1.5rem' }} className="hover:text-blue-300 mb-2">
-                    <Link to="/historial-preferencias">Historial de Preferencias</Link>
+                    <Link to="/history-preference">Historial de Preferencias</Link>
                 </li>
                 <li style={{ ...hoverStyle, marginRight: '1.5rem' }} className="hover:text-blue-300 mb-2">
-                    <Link to="/historial-reservaciones">Historial de Reservaciones</Link>
+                    <Link to="/user-history">Historial de Reservaciones</Link>
                 </li>
                 <li style={{ ...hoverStyle, marginRight: '1.5rem' }}
                     className="hover:text-blue-300 mb-2">
                     Crear un Nuevo Destino
+                </li>
+                <li style={{ ...hoverStyle, marginRight: '1.5rem' }}
+                    className="hover:text-blue-300 mb-2">
+                    <FontAwesomeIcon icon={faUser} style={{ marginRight: '0.5rem' }}/>  
+                       <Link to="/view-user">Mike</Link>
                 </li>
             </ul>
         </nav>

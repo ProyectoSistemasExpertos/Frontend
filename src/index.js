@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './Components/SideBar/SideBar';
 import NavBar from './Components/NavBar/NavBar';
 import Booking from './Components/Body/Booking/Booking';
-import HistorialPreferencias from './Components/Body/Booking/BodyBooking/HistoryPreference';
-import HistorialReservaciones from './Components/Body/Booking/BodyBooking/BookingHistory';
+import HistoryPreference from './Components/Body/Historys/HistoryPreference';
+import UserHistory from './Components/Body/User/UserHistory';
+import ViewUser from './Components/Body/User/ViewUser';
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -29,12 +30,16 @@ const App = () => {
                 element={<Booking selectedCategory={selectedCategory} />}
               />
               <Route
-                path="/historial-preferencias"
-                element={<HistorialPreferencias />}
+                path="/history-preference"
+                element={<HistoryPreference />}
               />
               <Route
-                path="/historial-reservaciones"
-                element={<HistorialReservaciones />}
+                path="/user-history"
+                element={<UserHistory />}
+              />
+              <Route
+                path="/view-user"
+                element={<ViewUser />}
               />
             </Routes>
           </div>

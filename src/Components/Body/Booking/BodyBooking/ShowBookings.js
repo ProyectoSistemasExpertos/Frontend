@@ -2,7 +2,7 @@ import React from 'react'
 
 const ShowBookings = ({booking, setBooking}) => {
     const { idBooking, tittle, description, price, state, location, totalPossibleReservation, 
-        uploadDate, image, name, email, firstLastName, secondLastName, phone, address, rol, typeCategory } = booking;
+        uploadDate, image, name, email, firstLastName, secondLastName, phone, address, typeCategory } = booking;
         return (
         <>
             
@@ -27,7 +27,7 @@ const ShowBookings = ({booking, setBooking}) => {
                         </div>
                         <p className="mb-6 text-sm text-neutral-500 dark:text-black">
                             Publicado el: <u>{uploadDate}</u> por
-                            <a href="#!"> {name} {firstLastName} {secondLastName}, ubicado en {address}</a>
+                            <a href="#!"> {name} {firstLastName} {secondLastName}, ubicado en {location}</a>
                         </p>
                         <p className="mb-6 text-black dark:text-black">
                             {description}. <br>

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth } from '../AuthContext/Authenticator';
-import { useNavigate } from 'react-router-dom';
 
 const Login = ({ switchView }) => {
     const { login } = useAuth(); //FUNCION DE INICIO DE SESION
-    const navigate = useNavigate(); //FUNCION DE NAVEGACION
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

@@ -1,10 +1,8 @@
 import React from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { useState, useEffect } from "react";
-import { useAuth } from '../../../AuthContext/Authenticator';
 import * as Yup from 'yup';
-import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+
 
 const validationSchema = Yup.object().shape({
     initial_date: Yup.date().required('Fecha de inicio es requerida'),
@@ -13,12 +11,9 @@ const validationSchema = Yup.object().shape({
     total_person: Yup.number().required('Número total de personas es requerido'),
     idPerson: Yup.string().required('ID de la persona es requerido'),
     idBooking: Yup.string().required('ID de la reserva es requerido'),
-  });
+});
 
 const ShowBookings = ({ booking, setBooking }) => {
-
-    const navigate = useNavigate();
-    const { userData } = useAuth()
     const { idBooking, tittle, description, price, state, location, totalPossibleReservation,
         uploadDate, image, name, email, firstLastName, secondLastName, phone, address, typeCategory } = booking;
     const [isModalOpen, setModalOpen] = useState(false);
@@ -27,45 +22,14 @@ const ShowBookings = ({ booking, setBooking }) => {
         setModalOpen(false);
     };
 
-    
-    const [initial_date, setInitial_date] = useState('');
-    const [final_date, setFinal_date] = useState('');
-    const [arrival_date, setArrival_date] = useState('');
-    const [total_person, setTotal_person] = useState('');
-    const [idPerson, setIdPerson] = useState(userData.id);
-    const [id, setId] = useState(idBooking);
-
-    const handleFormSubmit = async (values, actions, e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/api/housing/create', {
-                initial_date: initial_date,
-                final_date: final_date,
-                arrival_date: arrival_date,
-                total_person: total_person,
-                idPerson: idPerson,
-                idBooking: idBooking,
-            });
-    
-            console.log('Respuesta del servidor:', response.data);
-            //setBooking(response.data); // Actualiza el estado de las reservas con la nueva reserva
-    
-            // Navegar a la página "/booking" después de la reserva
-          //  navigate('/booking');
-        } catch (error) {
-            console.error('Error al hacer la solicitud:', error);
-        } finally {
-            actions.resetForm(); // Limpia los valores del formulario después de enviar
-            closeModal();
-        }
+    const handleFormSubmit = (values, actions) => {
+        console.log('Datos del formulario:', values);
+        actions.resetForm(); // Limpia los valores del formulario después de enviar
+        closeModal();
     };
-
-
-
 
     return (
         <>
-
             <div className="mb-16 flex flex-wrap">
                 <div className="mb-6 w-full shrink-0 grow-0 basis-auto lg:mb-0 lg:w-6/12 lg:pr-6">
                     <div className="ripple relative overflow-hidden rounded-lg bg-cover bg-[50%] bg-no-repeat shadow-lg dark:shadow-black/20" data-te-ripple-init data-te-ripple-color="light">
@@ -110,7 +74,7 @@ const ShowBookings = ({ booking, setBooking }) => {
                             <div className="fixed inset-0 z-50 flex items-center justify-center">
                                 <div className="absolute inset-0 bg-black opacity-50" onClick={closeModal}></div>
                                 <div className="bg-white p-8 rounded-lg z-50">
-                                    <h2 className="text-2xl font-bold mb-4 text-center">Registrar una nueva Reservación</h2>
+                                <h2 className="text-2xl font-bold mb-4 text-center">Registrar una nueva Reservación</h2>
 
                                     {/* Formik Form */}
                                     <Formik
@@ -123,10 +87,9 @@ const ShowBookings = ({ booking, setBooking }) => {
                                             idBooking: '',
                                         }}
                                         validationSchema={validationSchema}
-                                        onSubmit={(values, actions) => (e) => handleFormSubmit(values, actions, e)}
-
+                                        onSubmit={handleFormSubmit}
                                     >
-                                        <Form className="text-left" onSubmit={handleFormSubmit }>
+                                        <Form className="text-left">
                                             <div className="mb-4">
                                                 <label htmlFor="initial_date" className="block text-sm font-medium text-gray-600">
                                                     Fecha de inicio:
@@ -137,7 +100,6 @@ const ShowBookings = ({ booking, setBooking }) => {
                                                     name="initial_date"
                                                     placeholder="Selecciona la fecha de inicio"
                                                     className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
-                                                    value={initial_date} onChange={(e) => setInitial_date(e.target.value)}
                                                 />
                                                 <ErrorMessage name="initial_date" component="div" className="text-red-500 text-xs mt-1 italic" />
                                             </div>
@@ -152,7 +114,6 @@ const ShowBookings = ({ booking, setBooking }) => {
                                                     name="final_date"
                                                     placeholder="Selecciona la fecha final"
                                                     className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
-                                                    value={final_date} onChange={(e) => setFinal_date(e.target.value)}
                                                 />
                                                 <ErrorMessage name="final_date" component="div" className="text-red-500 text-sm" />
                                             </div>
@@ -162,13 +123,11 @@ const ShowBookings = ({ booking, setBooking }) => {
                                                     Hora de llegada:
                                                 </label>
                                                 <Field
-                                                    type="date"
+                                                    type="time"
                                                     id="arrival_hour"
                                                     name="arrival_hour"
                                                     placeholder="Selecciona la hora de llegada"
                                                     className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
-                                                    value={arrival_date} onChange={(e) => setArrival_date(e.target.value)}
-
                                                 />
                                                 <ErrorMessage name="arrival_hour" component="div" className="text-red-500 text-sm" />
                                             </div>
@@ -183,34 +142,36 @@ const ShowBookings = ({ booking, setBooking }) => {
                                                     name="total_person"
                                                     placeholder="Ingrese el número de personas"
                                                     className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
-                                                    value={total_person} onChange={(e) => setTotal_person(e.target.value)}
-
                                                 />
                                                 <ErrorMessage name="total_person" component="div" className="text-red-500 text-sm" />
                                             </div>
 
                                             <div className="mb-4">
-                                                <input
-                                                    type="hidden"
+                                                <label htmlFor="idPerson" className="block text-sm font-medium text-gray-600">
+                                                    ID de la persona:
+                                                </label>
+                                                <Field
+                                                    type="text"
                                                     id="idPerson"
                                                     name="idPerson"
                                                     placeholder="Ingrese el ID de la persona"
                                                     className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
-                                                    value={idPerson} onChange={(e) => setIdPerson(e.target.value)}
                                                 />
+                                                <ErrorMessage name="idPerson" component="div" className="text-red-500 text-sm" />
                                             </div>
 
                                             <div className="mb-4">
-
-                                                <input
+                                                <label htmlFor="idBooking" className="block text-sm font-medium text-gray-600">
+                                                    ID de la reserva:
+                                                </label>
+                                                <Field
                                                     type="text"
                                                     id="idBooking"
                                                     name="idBooking"
                                                     placeholder="Ingrese el ID de la reserva"
                                                     className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
-                                                    value={id} onChange={(e) => setId(e.target.value)}
-
                                                 />
+                                                <ErrorMessage name="idBooking" component="div" className="text-red-500 text-sm" />
                                             </div>
 
                                             <div className="mb-4">

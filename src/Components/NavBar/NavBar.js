@@ -164,7 +164,7 @@ const NavBar = ({ onCategoryChange }) => {
                                     type="text"
                                     id="state"
                                     name="state"
-                                    value="true"
+                                    value={formik.values.state  = true}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     placeholder="Ingrese el estado"

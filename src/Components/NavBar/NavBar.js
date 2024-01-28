@@ -1,14 +1,22 @@
 // NavBar.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useFormik } from 'formik';
 import { useAuth } from '../AuthContext/Authenticator';
+import axios from 'axios';
 import * as Yup from 'yup';
+
+const endpoint = "http://127.0.0.1:8000/api";
 
 const NavBar = ({ onCategoryChange }) => {
     const [isModalOpen, setModalOpen] = useState(false);
+    const [categorys, setCategorys] = useState([]);
+
+    const [idBooking, setIdBooking] = useState('');
+    const [typeCategory, setTypeCategory] = useState('');
+
     const openModal = () => setModalOpen(true);
     const { userData } = useAuth()
 
@@ -16,35 +24,59 @@ const NavBar = ({ onCategoryChange }) => {
         transition: 'color 0.3s',
     };
 
-    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const getCategory = await axios.get(`${endpoint}/category`);
+                setCategorys(getCategory.data); // Suponiendo que setCategorys es una función para establecer las categorías en tu estado
+                // Mapeo del objeto getCategory.data
+                getCategory.data.forEach(category => {
+                    const { idCategory, typeCategory } = category;
+                    // Aquí puedes hacer lo que necesites con idBooking y typeCategory
+                });
+            } catch (error) {
+                console.error("Error category ", error);
+            }
+        };
+        fetchData();
+    }, []);
     const formik = useFormik({
         initialValues: {
             title: '',
             description: '',
-            state: '',
+            state:'',
             price: '',
             location: '',
             totalPossibleReservation: '',
             idPerson: '',
             idCategory: '',
         },
+     
         validationSchema: Yup.object({
             title: Yup.string().required('Ingrese el título'),
             description: Yup.string().required('Ingrese la descripción'),
-            state: Yup.string().required('Ingrese el estado'),
             price: Yup.string().required('Ingrese el precio'),
             location: Yup.string().required('Ingrese la ubicación'),
             totalPossibleReservation: Yup.string().required('Ingrese el total de reservaciones posibles'),
-            idPerson: Yup.string().required('Ingrese el ID de la persona'),
+            idPerson: Yup.string().required('Ingrese el id'),
             idCategory: Yup.string().required('Ingrese el ID de la categoría'),
         }),
-        onSubmit: (values) => {
+        onSubmit: async (values)  => {
             console.log('Datos del formulario:', values);
-            // Limpia los valores del formulario después de enviar
-            formik.resetForm();
-            closeModal(); // Cierra el modal después de enviar el formulario
+
+            try {
+                const response = await axios.post(`${endpoint}/booking/create`, values);
+                console.log(response.data); // Maneja la respuesta de la API según tus necesidades
+                formik.resetForm();
+                closeModal(); // Cierra el modal después de enviar el formulario
+            } catch (error) {
+                console.error('Error al enviar los datos a la API:', error);
+                // Maneja el error según tus necesidades
+            }
         },
     });
+
+ 
 
     const closeModal = () => {
         setModalOpen(false);
@@ -71,7 +103,7 @@ const NavBar = ({ onCategoryChange }) => {
                     <li style={{ ...hoverStyle, marginRight: '1.5rem' }}
                         className="hover:text-blue-300 mb-2">
                         <FontAwesomeIcon icon={faUser} style={{ marginRight: '0.5rem' }} />
-                        <Link to="/view-user">Mike</Link>
+                        <Link to="/view-user">{userData.name}</Link>
                     </li>
                 </ul>
             </nav>
@@ -79,9 +111,8 @@ const NavBar = ({ onCategoryChange }) => {
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center">
                     <div className="absolute inset-0 bg-black opacity-50" onClick={closeModal}></div>
-                    <div className="bg-white p-8 rounded-lg z-50">
-                    <h2 className="text-2xl font-bold mb-4 text-center">Registrar un Nuevo Destino</h2>
-
+                    <div className="bg-white p-8 rounded-lg z-50 w-11/12 md:w-2/3 lg:w-1/2 xl:w-1/3">
+                        <h2 className="text-2xl font-bold mb-4 text-center">Registrar un Nuevo Destino</h2>
 
                         {/* Formulario */}
                         <form onSubmit={formik.handleSubmit} className="text-left">
@@ -124,7 +155,7 @@ const NavBar = ({ onCategoryChange }) => {
                                 )}
                             </div>
 
-                            <div className="mb-4">
+                            <div className="mb-4" style={{ display: 'none' }}> {/* Aplica display: none para ocultar el div */}
                                 <label htmlFor="state" className="block text-sm font-medium text-gray-600">
                                     Estado:
                                 </label>
@@ -132,7 +163,7 @@ const NavBar = ({ onCategoryChange }) => {
                                     type="text"
                                     id="state"
                                     name="state"
-                                    value={formik.values.state}
+                                    value="true"
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     placeholder="Ingrese el estado"
@@ -143,7 +174,6 @@ const NavBar = ({ onCategoryChange }) => {
                                     <div className="text-red-500 text-sm">{formik.errors.state}</div>
                                 )}
                             </div>
-
                             <div className="mb-4">
                                 <label htmlFor="price" className="block text-sm font-medium text-gray-600">
                                     Precio:
@@ -168,17 +198,23 @@ const NavBar = ({ onCategoryChange }) => {
                                 <label htmlFor="location" className="block text-sm font-medium text-gray-600">
                                     Ubicación:
                                 </label>
-                                <input
-                                    type="text"
+                                <select
                                     id="location"
                                     name="location"
                                     value={formik.values.location}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                    placeholder="Ingrese la ubicación"
-                                    className={`mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500 ${formik.touched.location && formik.errors.location ? 'border-red-500' : ''
-                                        }`}
-                                />
+                                    className={`mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500 ${formik.touched.location && formik.errors.location ? 'border-red-500' : ''}`}
+                                >
+                                    <option value="">Seleccione una provincia</option>
+                                    <option value="San Jose">San José</option>
+                                    <option value="Alajuela">Alajuela</option>
+                                    <option value="Cartago">Cartago</option>
+                                    <option value="Heredia">Heredia</option>
+                                    <option value="Guanacaste">Guanacaste</option>
+                                    <option value="Puntarenas">Puntarenas</option>
+                                    <option value="Limon">Limón</option>
+                                </select>
                                 {formik.touched.location && formik.errors.location && (
                                     <div className="text-red-500 text-sm">{formik.errors.location}</div>
                                 )}
@@ -189,7 +225,7 @@ const NavBar = ({ onCategoryChange }) => {
                                     htmlFor="totalPossibleReservation"
                                     className="block text-sm font-medium text-gray-600"
                                 >
-                                    Total de Reservaciones Posibles:
+                                    Cantidad de personas posibles en el alojamiento:
                                 </label>
                                 <input
                                     type="number"
@@ -214,44 +250,44 @@ const NavBar = ({ onCategoryChange }) => {
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="idPerson" className="block text-sm font-medium text-gray-600">
-                                    ID de la Persona:
-                                </label>
                                 <input
                                     type="number"
                                     id="idPerson"
                                     name="idPerson"
-                                    value={formik.values.idPerson}
+                                    value={formik.values.idPerson = userData.id}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     placeholder="Ingrese el ID de la persona"
                                     className={`mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500 ${formik.touched.idPerson && formik.errors.idPerson ? 'border-red-500' : ''
                                         }`}
+                                        style={{ display: 'none' }}
                                 />
-                                {formik.touched.idPerson && formik.errors.idPerson && (
-                                    <div className="text-red-500 text-sm">{formik.errors.idPerson}</div>
-                                )}
                             </div>
 
                             <div className="mb-4">
                                 <label htmlFor="idCategory" className="block text-sm font-medium text-gray-600">
-                                    ID de la Categoría:
+                                    Categoría:
                                 </label>
-                                <input
-                                    type="number"
+                                <select
                                     id="idCategory"
                                     name="idCategory"
                                     value={formik.values.idCategory}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                    placeholder="Ingrese el ID de la categoría"
-                                    className={`mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500 ${formik.touched.idCategory && formik.errors.idCategory ? 'border-red-500' : ''
-                                        }`}
-                                />
+                                    className={`mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500 ${formik.touched.idCategory && formik.errors.idCategory ? 'border-red-500' : ''}`}
+                                >
+                                    <option value="">Seleccione una categoría</option>
+                                    {categorys.map(category => (
+                                        <option key={category.idCategory} value={category.idCategory}>
+                                            {category.typeCategory}
+                                        </option>
+                                    ))}
+                                </select>
                                 {formik.touched.idCategory && formik.errors.idCategory && (
                                     <div className="text-red-500 text-sm">{formik.errors.idCategory}</div>
                                 )}
                             </div>
+
 
                             <div className="mb-4">
                                 <button type="submit" className="bg-blue-500 text-white p-2 rounded-full">

@@ -28,9 +28,6 @@ const ShowBookings = ({ booking, setBooking }) => {
         closeModal();
     };
 
-
-
-
     return (
         <>
 

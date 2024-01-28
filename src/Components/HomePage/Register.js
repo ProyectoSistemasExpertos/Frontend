@@ -23,6 +23,7 @@ const Register = ({ switchView }) => {
 
     };
     return (
+        <div>
         <form onSubmit={handleRegister} className="max-w-md mx-auto">
             <h1 className="text-gray-800 font-bold text-xl">Regístrate</h1>
             <p className="text-xs font-bold text-gray-600 mb-3">Por favor, completa el siguiente formulario...</p>
@@ -113,7 +114,15 @@ const Register = ({ switchView }) => {
                     Registrarse
                 </button>
             </div>
+           
         </form>
+        <p className="text-gray-400">
+                    ¿Ya tienes una cuenta?{' '}
+                    <a href="#" className="text-sm text-purple-700 hover:text-purple-700" onClick={() => switchView('login')}>
+                        Ingresar
+                    </a>
+                </p>
+        </div>
     );
 };
 

@@ -6,27 +6,20 @@ const Register = ({ switchView }) => {
     const { register, successMessage } = useAuth(); //FUNCION DE REGISTRO
 
     const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [idCard, setidCard] = useState('');
     const [firstLastName, setFirstLastName] = useState('');
     const [secondLastName, setSecondLastName] = useState('');
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [preferences, setPreferences] = useState([]);
+    const [idCategory, setCategory] = useState('');
+    const [idRol, setIdRol] = useState(2);
 
     const handleRegister = async (e) => {
         e.preventDefault();
 
-        await register(name,
-            idCard,
-            firstLastName,
-            secondLastName,
-            phone,
-            address,
-            email,
-            password,
-            preferences);
+        await register(name, email, password, idCard, firstLastName, secondLastName, phone, address, idCategory, idRol);
 
     };
     return (
@@ -101,8 +94,8 @@ const Register = ({ switchView }) => {
             <div className="flex items-center border-2 py-2 px-1 rounded-lg mb-2">
                 <select
                     className="pl-2 font-bold text-xs w-full focus:outline-none"
-                    value={preferences}
-                    onChange={(e) => setPreferences(e.target.preferences, (option) => option.value)}
+                    value={idCategory}
+                    onChange={(e) => setCategory(e.target.value)}
                 >
                     <option value="">Selecciona tu preferencia de viajes</option>
                     <option value="1">Montañas</option>

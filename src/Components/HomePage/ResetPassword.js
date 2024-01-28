@@ -12,7 +12,7 @@ const ResetPassword = ({ switchView }) => {
         try {
             // Realizar la solicitud para restablecer la contraseña
             const token = window.location.search.split('=')[1]; // Obtener el token de la URL
-            const response = await axios.post(`http://localhost/api/reset-password?token=${token}`, {
+            const response = await axios.post(`http://localhost:8000/api/reset-password?token=${token}`, {
                 password: password,
                 password_confirmation: confirmPassword,
             });

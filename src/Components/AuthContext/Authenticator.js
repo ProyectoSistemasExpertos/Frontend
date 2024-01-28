@@ -24,22 +24,25 @@ export const AuthProvider = ({children }) => {
         }
     };
 
-    const register = async (name, idCard, firstLastName, secondLastName, phone, address, email, password, preferences) => {
+    const register = async (name, email, password, idCard, firstLastName, secondLastName, phone, address, idCategory, idRol) => {
         try {
-            const response = await axios.post('http://localhost:8000/api/register', {
-                name,
-                idCard,
-                firstLastName,
-                secondLastName,
-                phone,
-                address,
-                email,
-                password,
+            const response = await axios.post('http://localhost:8000/api/person/create', {
+            name : name,
+            email : email,
+            password : password,
+            idCard : idCard,
+            firstLastName : firstLastName,
+            secondLastName : secondLastName,
+            phone : phone,
+            address : address,
+            idRol : idRol,
             });
-            const registerPreferences = await axios.post('http://localhost:8000/api/preferences', {
-                preferences,
+            const user = await axios.get(`http://localhost:8000/api/person/${idCard}`);
+            const idPerson = user.data.id
+            const registerPreferences = await axios.post('http://localhost:8000/api/preference/create', {
+                idPerson,
+                idCategory,
             });
-
         } catch (error) {
             console.error('Error de registro:', error);
         }

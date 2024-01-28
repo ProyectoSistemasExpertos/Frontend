@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ShowBookings from '../Booking/BodyBooking/ShowBookings';
+import ShowBookingsHistory from '../Booking/BodyBooking/ShowBookingsHistory';
 
 
 const endpoint = "http://127.0.0.1:8000/api";
@@ -38,7 +38,7 @@ export default function UserHistory() {
         <div>
             <section className={`p-6 w-full mb-32 bg-white`}>
                 {bookings.map((booking) => (
-                    <ShowBookings
+                    <ShowBookingsHistory
                     key={booking.id}
                         booking={booking}
                         setBooking={setBookings}

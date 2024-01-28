@@ -33,7 +33,6 @@ const Booking = ({ selectedCategory }) => {
         const fetchDataB = async () => {
             try {
                 const num = selectedCategory && Number(selectedCategory.selectedCategory);
-                console.log(num);
                 if (num != 0 && num != null) {
                     console.log(`${endpoint}/booking/filter_category/${num}`);
                     const response = await axios.get(`${endpoint}/booking/filter_category/${num}`);                    

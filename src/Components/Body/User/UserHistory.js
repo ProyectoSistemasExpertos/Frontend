@@ -2,18 +2,19 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ShowBookingsHistory from '../Booking/BodyBooking/ShowBookingsHistory';
-
+import { useAuth } from '../../AuthContext/Authenticator';
 
 const endpoint = "http://127.0.0.1:8000/api";
 
 export default function UserHistory() {
-
+    const { userData } = useAuth()
     const [bookings, setBookings] = useState([]);
     const id = 1;
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log(userData);
                 const response = await axios.get(`${endpoint}/housing/history_by_user/${id}`);
                 setBookings(response.data);
 

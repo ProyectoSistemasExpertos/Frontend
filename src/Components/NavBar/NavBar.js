@@ -4,16 +4,19 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useFormik } from 'formik';
+import { useAuth } from '../AuthContext/Authenticator';
 import * as Yup from 'yup';
 
 const NavBar = ({ onCategoryChange }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
+    const { userData } = useAuth()
 
     const hoverStyle = {
         transition: 'color 0.3s',
     };
 
+    
     const formik = useFormik({
         initialValues: {
             title: '',
@@ -36,9 +39,7 @@ const NavBar = ({ onCategoryChange }) => {
             idCategory: Yup.string().required('Ingrese el ID de la categoría'),
         }),
         onSubmit: (values) => {
-            // Puedes realizar las acciones que desees con los datos del formulario
             console.log('Datos del formulario:', values);
-
             // Limpia los valores del formulario después de enviar
             formik.resetForm();
             closeModal(); // Cierra el modal después de enviar el formulario

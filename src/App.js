@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useAuth } from './Components/AuthContext/Authenticator';
-import { Navigate } from 'react-router-dom';
 import HomePage from './Components/HomePage/HomePage';
 import Sidebar from './Components/SideBar/SideBar';
 import NavBar from './Components/NavBar/NavBar';
@@ -14,14 +13,6 @@ import ResetPassword from './Components/HomePage/ResetPassword';
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const { isAuthenticated } = useAuth(true);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-      isAuthenticated ? 
-      navigate('/booking') 
-      : 
-      navigate('/');
-    }, [isAuthenticated, navigate]);
 
   const handleCategoryChange = (selectedCategory) => {
     setSelectedCategory(selectedCategory === 0 ? null : selectedCategory);
@@ -35,9 +26,18 @@ const App = () => {
       <div className="flex-1 flex flex-col overflow-hidden">
         <NavBar onCategoryChange={handleCategoryChange} />
         <div className="flex-1 flex items-start justify-start p-4 overflow-y-auto bg-white-300">
-        <Routes>
+          <Routes>
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/"
+              element={
+                isAuthenticated ? (
+                  <Navigate to="/booking" />
+                ) : (
+                  <HomePage />
+                )
+              }
+            />
             {isAuthenticated && (
               <>
                 <Route path="/booking" element={<Booking selectedCategory={selectedCategory} />} />

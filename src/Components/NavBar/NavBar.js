@@ -49,6 +49,7 @@ const NavBar = ({ onCategoryChange }) => {
     const closeModal = () => {
         setModalOpen(false);
         formik.resetForm();
+        console.log(userData);
     };
     return (
         <>

@@ -13,7 +13,7 @@ import ResetPassword from './Components/HomePage/ResetPassword';
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth(true);
   const navigate = useNavigate();
 
   useEffect(() => {

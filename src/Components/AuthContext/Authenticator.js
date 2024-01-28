@@ -24,7 +24,7 @@ export const AuthProvider = ({children }) => {
         }
     };
 
-    const register = async (name, idCard, firstLastName, secondLastName, phone, address, email, password) => {
+    const register = async (name, idCard, firstLastName, secondLastName, phone, address, email, password, preferences) => {
         try {
             const response = await axios.post('http://localhost:8000/api/register', {
                 name,
@@ -35,6 +35,9 @@ export const AuthProvider = ({children }) => {
                 address,
                 email,
                 password,
+            });
+            const registerPreferences = await axios.post('http://localhost:8000/api/preferences', {
+                preferences,
             });
 
         } catch (error) {

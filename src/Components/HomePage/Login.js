@@ -20,7 +20,7 @@ const Login = ({ switchView }) => {
     };
 
     return (
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} >
             <div className="mb-7">
                 <h3 className="font-semibold text-2xl text-gray-800">Iniciar Sesión</h3>
                 <p className="text-gray-400">

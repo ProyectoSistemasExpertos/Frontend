@@ -9,19 +9,17 @@ const ForgotPassword = ({ switchView }) => {
 
         try {
             // Realizar la solicitud para enviar un correo de restablecimiento de contraseña
-            const response = await axios.post('http://localhost/api/forgot-password', {
+            const response = await axios.post('http://localhost:8000/api/forgot-password', {
                 email: email,
             });
 
-            // Manejar la respuesta según sea necesario
-            console.log(response.data);
         } catch (error) {
             console.error('Error al solicitar restablecimiento de contraseña:', error);
         }
     };
 
     return (
-            <form onSubmit={handleForgotPassword}>
+            <form onSubmit={handleForgotPassword} action="#" method="post">
                 <div className="mb-7">
                     <h3 className="font-semibold text-2xl text-gray-800">¿Olvidaste tu Contraseña?</h3>
                     <p className="text-gray-400">
@@ -40,12 +38,13 @@ const ForgotPassword = ({ switchView }) => {
                         />
                     </div>
                     <div>
-                        <button
-                            type="submit"
-                            className="w-full flex justify-center bg-purple-800 hover:bg-purple-700 text-gray-100 p-3 rounded-lg tracking-wide font-semibold cursor-pointer transition ease-in duration-500"
-                            onClick={() => switchView('login')}>
-                            Enviar Enlace de Restablecimiento
-                        </button>
+                    <button
+                        type="submit" // Change 'submit' to 'button'
+                        className="w-full flex justify-center bg-purple-800 hover:bg-purple-700 text-gray-100 p-3 rounded-lg tracking-wide font-semibold cursor-pointer transition ease-in duration-500"
+                        onClick={() => handleForgotPassword} // Trigger the form submission
+                    >
+                        Enviar Enlace de Restablecimiento
+                    </button>
                     </div>
                 </div>
             </form>

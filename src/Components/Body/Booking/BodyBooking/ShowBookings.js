@@ -14,6 +14,11 @@ const validationSchema = Yup.object().shape({
 });
 
 const ShowBookings = ({ booking, setBooking }) => {
+<<<<<<< Updated upstream
+=======
+    const navigate = useNavigate();
+    const { userData, setIsAuthenticated } = useAuth()
+>>>>>>> Stashed changes
     const { idBooking, tittle, description, price, state, location, totalPossibleReservation,
         uploadDate, image, name, email, firstLastName, secondLastName, phone, address, typeCategory } = booking;
     const [isModalOpen, setModalOpen] = useState(false);
@@ -22,10 +27,50 @@ const ShowBookings = ({ booking, setBooking }) => {
         setModalOpen(false);
     };
 
+<<<<<<< Updated upstream
     const handleFormSubmit = (values, actions) => {
         console.log('Datos del formulario:', values);
         actions.resetForm(); // Limpia los valores del formulario después de enviar
         closeModal();
+=======
+    
+    const [initial_date, setInitial_date] = useState('');
+    const [final_date, setFinal_date] = useState('');
+    const [arrival_date, setArrival_date] = useState('');
+    const [total_person, setTotal_person] = useState('');
+    const [idPerson, setIdPerson] = useState(userData.id);
+    const [id, setId] = useState(idBooking);
+
+    const handleFormSubmit = async (values, actions, e) => {
+        e.preventDefault();
+        try {
+            setIsAuthenticated(true);
+            const response = await axios.post('http://127.0.0.1:8000/api/housing/create', {
+                initial_date: initial_date,
+                final_date: final_date,
+                arrival_date: arrival_date,
+                total_person: total_person,
+                idPerson: idPerson,
+                idBooking: idBooking,
+            });
+    
+            //setBooking(response.data); // Actualiza el estado de las reservas con la nueva reserva
+    
+            // Navegar a la página "/booking" después de la reserva
+          //  navigate('/booking');
+        } catch (error) {
+            console.log(initial_date,
+                final_date,
+                arrival_date,
+                total_person,
+                idPerson,
+                idBooking);
+            console.error('Error al hacer la solicitud:', error);
+        } finally {
+            actions.resetForm(); // Limpia los valores del formulario después de enviar
+            closeModal();
+        }
+>>>>>>> Stashed changes
     };
 
     return (
@@ -96,7 +141,7 @@ const ShowBookings = ({ booking, setBooking }) => {
                                                 </label>
                                                 <Field
                                                     type="date"
-                                                    id="initial_date"
+                                                    id=""
                                                     name="initial_date"
                                                     placeholder="Selecciona la fecha de inicio"
                                                     className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
@@ -110,7 +155,7 @@ const ShowBookings = ({ booking, setBooking }) => {
                                                 </label>
                                                 <Field
                                                     type="date"
-                                                    id="final_date"
+                                                    id=""
                                                     name="final_date"
                                                     placeholder="Selecciona la fecha final"
                                                     className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
@@ -119,17 +164,23 @@ const ShowBookings = ({ booking, setBooking }) => {
                                             </div>
 
                                             <div className="mb-4">
-                                                <label htmlFor="arrival_hour" className="block text-sm font-medium text-gray-600">
+                                                <label htmlFor="arrival_date" className="block text-sm font-medium text-gray-600">
                                                     Hora de llegada:
                                                 </label>
                                                 <Field
+<<<<<<< Updated upstream
                                                     type="time"
                                                     id="arrival_hour"
                                                     name="arrival_hour"
+=======
+                                                    type="date"
+                                                    id=""
+                                                    name="arrival_date"
+>>>>>>> Stashed changes
                                                     placeholder="Selecciona la hora de llegada"
                                                     className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
                                                 />
-                                                <ErrorMessage name="arrival_hour" component="div" className="text-red-500 text-sm" />
+                                                <ErrorMessage name="arrival_date" component="div" className="text-red-500 text-sm" />
                                             </div>
 
                                             <div className="mb-4">
@@ -138,7 +189,7 @@ const ShowBookings = ({ booking, setBooking }) => {
                                                 </label>
                                                 <Field
                                                     type="number"
-                                                    id="total_person"
+                                                    id=""
                                                     name="total_person"
                                                     placeholder="Ingrese el número de personas"
                                                     className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
@@ -147,12 +198,18 @@ const ShowBookings = ({ booking, setBooking }) => {
                                             </div>
 
                                             <div className="mb-4">
+<<<<<<< Updated upstream
                                                 <label htmlFor="idPerson" className="block text-sm font-medium text-gray-600">
                                                     ID de la persona:
                                                 </label>
                                                 <Field
                                                     type="text"
                                                     id="idPerson"
+=======
+                                                <input
+                                                    type="hidden"
+                                                    id=""
+>>>>>>> Stashed changes
                                                     name="idPerson"
                                                     placeholder="Ingrese el ID de la persona"
                                                     className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"
@@ -166,7 +223,7 @@ const ShowBookings = ({ booking, setBooking }) => {
                                                 </label>
                                                 <Field
                                                     type="text"
-                                                    id="idBooking"
+                                                    id=""
                                                     name="idBooking"
                                                     placeholder="Ingrese el ID de la reserva"
                                                     className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-blue-500"

@@ -12,7 +12,7 @@ const ForgotPassword = ({ switchView }) => {
             const response = await axios.post('http://localhost:8000/api/forgot-password', {
                 email,
             });
-            console.log(response.data);
+            console.log(response.data); 
         } catch (error) {
             console.error('Error al solicitar restablecimiento de contraseña:', error);
         }

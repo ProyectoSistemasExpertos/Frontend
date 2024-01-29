@@ -67,9 +67,9 @@ const Booking = ({ selectedCategory }) => {
         <section className={`p-6 w-full mb-32 bg-white`}>
            {filterBookings.length ? (
     <>
-        {filterBookings.map((filterBooking) => (
+        {filterBookings.map((filterBooking, index) => (
             <ShowBookings
-                key={filterBooking.id}
+                key={index}
                 booking={filterBooking}
                 setBooking={setfilterBookings}
             />
@@ -79,9 +79,9 @@ const Booking = ({ selectedCategory }) => {
     <>
         {bookings && bookings.length ? (
             <>
-                {bookings.map((booking) => (
+                {bookings.map((booking,index) => (
                     <ShowBookings
-                        key={booking.id}
+                        key={index}
                         booking={booking}
                         setBooking={setBookings}
                     />
